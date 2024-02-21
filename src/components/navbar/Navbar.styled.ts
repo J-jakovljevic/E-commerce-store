@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
-import { Column } from "../../utils/layout";
-import colors from "../../utils/colors";
-import { ExitIcon, LogoIcon } from "../../shared/icons/icons";
+import { Column } from "utils/layout";
+import colors from "utils/colors";
+import { ExitIcon, LogoIcon } from "shared/icons/icons";
 
 export const NavbarContainer = styled(Column)`
   width: 7.2rem;

@@ -7,8 +7,8 @@ import {
 } from "react-router-dom";
 
 import "./App.css";
-import { HOME_PAGE_ROUTE } from "./services/routes";
-import HomePage from "./views/home-page/HomePage";
+import { HOME_PAGE_ROUTE } from "services/routes";
+import HomePage from "views/home-page/HomePage";
 
 function App() {
   return (

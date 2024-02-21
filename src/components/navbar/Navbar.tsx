@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 
 import { useNavigate } from "react-router-dom";
-import { HOME_PAGE_ROUTE } from "../../services/routes";
+import { HOME_PAGE_ROUTE } from "services/routes";
 import {
   NavbarContainer,
   LogoIconStyled,
