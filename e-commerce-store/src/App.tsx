@@ -1,25 +1,26 @@
 import React from "react";
-import logo from "./logo.svg";
+import {
+  BrowserRouter as Router,
+  Navigate,
+  Route,
+  Routes,
+} from "react-router-dom";
+
 import "./App.css";
+import { HOME_PAGE_ROUTE } from "./services/routes";
+import HomePage from "./views/home-page/HomePage";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <div className="App">
+        <Routes>
+          <Route path={HOME_PAGE_ROUTE} element={<HomePage />} />
+
+          <Route path="*" element={<Navigate to={HOME_PAGE_ROUTE} replace />} />
+        </Routes>
+      </div>
+    </Router>
   );
 }
 
