@@ -4,12 +4,16 @@ import {
   HomePageContainer,
   HomePageContentWrapper,
   HomePageItemCardsWrapper,
+  HomePageSearchBarLabel,
   HomePageSearchBarWrapper,
+  HomePageSearchBarStyled,
 } from "./HomePage.styled";
 import Navbar from "components/navbar/Navbar";
 import l from "languages/en";
 import { Product } from "models/productModel";
 import ItemCard from "components/item-card/ItemCard";
+import { FontEnum } from "utils/fonts";
+import colors from "utils/colors";
 
 const HomePage: FC = () => {
   const [products, setProducts] = useState<Product[]>();
@@ -56,9 +60,17 @@ const HomePage: FC = () => {
 
       <HomePageContentWrapper>
         <HomePageSearchBarWrapper>
-          <label>Search item</label>
+          <HomePageSearchBarLabel
+            fontStyle={FontEnum.CabinRegular16}
+            color={colors.gray}
+          >
+            {l.SEARCH_ITEM}
+          </HomePageSearchBarLabel>
 
-          <input placeholder="search..." />
+          <HomePageSearchBarStyled
+            type="text"
+            placeholder={l.APPLE_WATCH_SAMSUNG}
+          />
         </HomePageSearchBarWrapper>
 
         <HomePageItemCardsWrapper>
