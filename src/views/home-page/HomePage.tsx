@@ -68,7 +68,9 @@ const HomePage: FC = () => {
   }, [searchText]);
 
   const fetchSearcedData = (query: string) => {
-    fetch(`https://dummyjson.com/products/search?q=${query}`)
+    const sanitizedQuery = encodeURIComponent(query); // encodes special characters including: , / ? : @ & = + $ #
+
+    fetch(`https://dummyjson.com/products/search?q=${sanitizedQuery}`)
       .then((response) => response.json())
       .then((data) => {
         setProducts(data.products);
