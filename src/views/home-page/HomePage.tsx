@@ -1,4 +1,10 @@
-import React, { FC, useEffect, useState } from "react";
+import React, {
+  ChangeEvent,
+  FC,
+  KeyboardEvent,
+  useEffect,
+  useState,
+} from "react";
 
 import {
   HomePageContainer,
@@ -17,6 +23,11 @@ import colors from "utils/colors";
 
 const HomePage: FC = () => {
   const [products, setProducts] = useState<Product[]>();
+
+  const [searchText, setSearchText] = useState("");
+  const [typingTimeout, setTypingTimeout] = useState<NodeJS.Timeout | null>(
+    null
+  );
 
   const productsCategories = [
     "smartphones",
@@ -51,8 +62,49 @@ const HomePage: FC = () => {
       }
     };
 
-    fetchProducts();
-  }, []);
+    if (!searchText) {
+      fetchProducts();
+    }
+  }, [searchText]);
+
+  const fetchSearcedData = (query: string) => {
+    fetch(`https://dummyjson.com/products/search?q=${query}`)
+      .then((response) => response.json())
+      .then((data) => {
+        setProducts(data.products);
+      });
+  };
+
+  const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const inputText = event.target.value;
+
+    setSearchText(inputText);
+
+    // clear previous timeout
+    if (typingTimeout) {
+      clearTimeout(typingTimeout);
+    }
+
+    // set a new timeout
+    setTypingTimeout(
+      setTimeout(() => {
+        if (inputText) {
+          fetchSearcedData(inputText);
+        }
+      }, 750)
+    );
+  };
+
+  const handleKeyPress = (event: KeyboardEvent<HTMLInputElement>) => {
+    // clear timeout if the user presses enter
+    if (typingTimeout) {
+      clearTimeout(typingTimeout);
+    }
+
+    if (event.key === "Enter" && searchText) {
+      fetchSearcedData(searchText);
+    }
+  };
 
   return (
     <HomePageContainer>
@@ -70,6 +122,9 @@ const HomePage: FC = () => {
           <HomePageSearchBarStyled
             type="text"
             placeholder={l.APPLE_WATCH_SAMSUNG}
+            value={searchText}
+            onChange={handleInputChange}
+            onKeyDown={handleKeyPress}
           />
         </HomePageSearchBarWrapper>
 
