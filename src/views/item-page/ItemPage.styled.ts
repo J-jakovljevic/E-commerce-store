@@ -1,7 +1,19 @@
 import { BackIcon } from "shared/icons/icons";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import colors from "utils/colors";
 import { Column, Row } from "utils/layout";
+
+const slideRight = keyframes`
+  0% {
+    transform: translateX(100%);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+`;
 
 export const ItemPageContainer = styled(Row)`
   height: 100%;
@@ -13,6 +25,8 @@ export const ItemPageContainer = styled(Row)`
   box-sizing: border-box;
 
   overflow: auto;
+
+  animation: ${slideRight} 251ms ease-in-out;
 `;
 
 export const ItemPageContentWrapper = styled(Column)`
