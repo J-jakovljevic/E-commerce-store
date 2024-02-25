@@ -108,6 +108,14 @@ const HomePage: FC = () => {
     }
   };
 
+  const onThumbnailClickHandler = (productId: number) => {
+    fetch(`https://dummyjson.com/products/${productId}`)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+      });
+  };
+
   return (
     <HomePageContainer>
       <Navbar />
@@ -139,6 +147,9 @@ const HomePage: FC = () => {
                 description={product.description}
                 price={product.price}
                 thumbnail={product.thumbnail}
+                thumbnailClickHandler={() =>
+                  onThumbnailClickHandler(product.id)
+                }
               />
             ))}
         </HomePageItemCardsWrapper>
