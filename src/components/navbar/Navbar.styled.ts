@@ -6,7 +6,6 @@ import { ExitIcon, LogoIcon } from "shared/icons/icons";
 
 export const NavbarContainer = styled(Column)`
   width: 7.2rem;
-  height: 100%;
 
   justify-content: space-between;
   align-items: center;
