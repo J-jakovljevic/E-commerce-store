@@ -1,11 +1,22 @@
-import React, { FC, useEffect } from "react";
+import React, { FC, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import Rating from "@mui/material/Rating";
+import { Divider } from "@mui/material";
 
 import {
   BackIconStyled,
   BackIconWrapper,
+  ItemPageBottomContentWrapper,
   ItemPageContainer,
   ItemPageContentWrapper,
+  ItemPageDescriptionWrapper,
+  ItemPageDividerWrappeer,
+  ItemPageHeaderWrapper,
+  ItemPageRatingWrapper,
+  ItemPageThumbnailStyled,
+  ItemPageThumbnailWrapper,
+  ItemPageTopContentTextWrapper,
+  ItemPageTopContentWrapper,
 } from "./ItemPage.styled";
 import Navbar from "components/navbar/Navbar";
 import CustomText from "components/custom-text/CustomText";
@@ -14,11 +25,14 @@ import { FontEnum } from "utils/fonts";
 import colors from "utils/colors";
 import { HOME_PAGE_ROUTE } from "services/routes";
 import { productsCategories } from "utils/constants";
+import { Product } from "models/productModel";
 
 const ItemPage: FC = () => {
-  const { itemId } = useParams();
+  const [item, setItem] = useState<Product>();
 
   const navigate = useNavigate();
+
+  const { itemId } = useParams();
 
   useEffect(() => {
     if (itemId) {
@@ -49,13 +63,13 @@ const ItemPage: FC = () => {
             navigate(HOME_PAGE_ROUTE);
           }
 
-          console.log(data.category);
+          setItem(data);
         })
         .catch(() => navigate(HOME_PAGE_ROUTE));
     }
   }, [itemId]);
 
-  return (
+  return item ? (
     <ItemPageContainer>
       <Navbar />
 
@@ -70,9 +84,85 @@ const ItemPage: FC = () => {
             {l.BACK}
           </CustomText>
         </BackIconWrapper>
+
+        <ItemPageTopContentWrapper>
+          <ItemPageThumbnailWrapper>
+            <ItemPageThumbnailStyled src={item.thumbnail} />
+          </ItemPageThumbnailWrapper>
+
+          <ItemPageTopContentTextWrapper>
+            <ItemPageHeaderWrapper>
+              <CustomText
+                fontStyle={FontEnum.CabinBold61}
+                color={colors.darkGray}
+              >
+                {item.title}
+              </CustomText>
+
+              <CustomText
+                fontStyle={FontEnum.CabinMedium31}
+                color={colors.gray100}
+              >
+                {item.brand}
+              </CustomText>
+            </ItemPageHeaderWrapper>
+
+            <ItemPageRatingWrapper>
+              <Rating
+                name="read-only"
+                value={item.rating}
+                size="large"
+                readOnly
+                precision={0.01}
+              />
+
+              <CustomText
+                fontStyle={FontEnum.CabinRegular20}
+                color={colors.green}
+              >
+                {l.RATING(item.rating)}
+              </CustomText>
+            </ItemPageRatingWrapper>
+
+            <CustomText
+              fontStyle={FontEnum.CabinMedium31}
+              color={colors.darkGray}
+            >
+              {l.DOLLAR_PRICE(item.price)}
+            </CustomText>
+
+            <CustomText
+              fontStyle={FontEnum.CabinRegular20}
+              color={colors.black}
+              width="57.5rem"
+              className="description"
+            >
+              {item.description}
+            </CustomText>
+          </ItemPageTopContentTextWrapper>
+        </ItemPageTopContentWrapper>
+
+        <ItemPageBottomContentWrapper>
+          <ItemPageDividerWrappeer>
+            <Divider />
+          </ItemPageDividerWrappeer>
+
+          <ItemPageDescriptionWrapper>
+            <CustomText
+              fontStyle={FontEnum.CabinMedium31}
+              color={colors.darkGray}
+            >
+              {l.DESCRIPTION}
+            </CustomText>
+
+            <CustomText fontStyle={FontEnum.CabinRegular20} color={colors.gray}>
+              {item.description}
+            </CustomText>
+          </ItemPageDescriptionWrapper>
+        </ItemPageBottomContentWrapper>
       </ItemPageContentWrapper>
     </ItemPageContainer>
-  );
+  ) : null;
 };
 
 export default ItemPage;

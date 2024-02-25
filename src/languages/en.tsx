@@ -10,6 +10,8 @@ const l = {
 
   // ITEM PAGE
   BACK: "Back",
+  RATING: (rating: number) => `${rating} / 5`,
+  DESCRIPTION: "Description",
 };
 
 export default l;
