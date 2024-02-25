@@ -1,12 +1,11 @@
-import { BackIcon } from "shared/icons/icons";
 import styled, { keyframes } from "styled-components";
-import colors from "utils/colors";
+import { BackIcon } from "shared/icons/icons";
 import { Column, Row } from "utils/layout";
 
 const slideRight = keyframes`
   0% {
     transform: translateX(100%);
-    opacity: 1;
+    opacity: 0;
   }
 
   100% {
@@ -16,21 +15,13 @@ const slideRight = keyframes`
 `;
 
 export const ItemPageContainer = styled(Row)`
-  height: 100%;
-
-  padding: 1.6rem;
-
-  background: ${colors.lightGray};
-
-  box-sizing: border-box;
-
-  overflow: auto;
-
   animation: ${slideRight} 251ms ease-in-out;
 `;
 
 export const ItemPageContentWrapper = styled(Column)`
   padding-left: 3.4rem;
+
+  animation: ${slideRight} 251ms ease-in-out;
 `;
 
 export const BackIconWrapper = styled(Row)`
