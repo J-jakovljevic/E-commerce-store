@@ -7,8 +7,9 @@ import {
 } from "react-router-dom";
 
 import "./App.css";
-import { HOME_PAGE_ROUTE } from "services/routes";
+import { HOME_PAGE_ROUTE, ITEM } from "services/routes";
 import HomePage from "views/home-page/HomePage";
+import ItemPage from "views/item-page/ItemPage";
 
 function App() {
   return (
@@ -16,6 +17,8 @@ function App() {
       <div className="App">
         <Routes>
           <Route path={HOME_PAGE_ROUTE} element={<HomePage />} />
+
+          <Route path={ITEM()} element={<ItemPage />} />
 
           <Route path="*" element={<Navigate to={HOME_PAGE_ROUTE} replace />} />
         </Routes>

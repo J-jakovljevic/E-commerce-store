@@ -8,6 +8,12 @@ const CabinRegular16 = styled.span`
   line-height: 1.94rem;
 `;
 
+const CabinRegular20 = styled.span`
+  font-family: "Cabin-Regular";
+  font-size: 2rem;
+  line-height: 2.4rem;
+`;
+
 // CABIN (medium)
 
 const CabinMedium20 = styled.span`
@@ -18,12 +24,14 @@ const CabinMedium20 = styled.span`
 
 export enum FontEnum {
   CabinRegular16 = "CabinRegular16",
+  CabinRegular20 = "CabinRegular20",
   CabinMedium20 = "CabinMedium20",
 }
 
 export const getFontStyles = (fontStyle: FontEnum) => {
   const fontMap = {
     [FontEnum.CabinRegular16]: CabinRegular16,
+    [FontEnum.CabinRegular20]: CabinRegular20,
     [FontEnum.CabinMedium20]: CabinMedium20,
   };
 
