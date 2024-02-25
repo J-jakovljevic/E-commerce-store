@@ -20,8 +20,6 @@ export const ItemPageContainer = styled(Row)`
 
 export const ItemPageContentWrapper = styled(Column)`
   padding-left: 3.4rem;
-
-  animation: ${slideRight} 251ms ease-in-out;
 `;
 
 export const BackIconWrapper = styled(Row)`
