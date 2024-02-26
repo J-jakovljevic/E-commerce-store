@@ -18,13 +18,12 @@ const slideRight = keyframes`
 export const ItemPageContainer = styled(Row)`
   padding-right: 10.2rem;
 
-  gap: 3.4rem;
-
   animation: ${slideRight} 251ms ease-in-out;
 `;
 
 export const ItemPageContentWrapper = styled(Column)`
   padding: 3.2rem 2.4rem 4.3rem 2.4rem;
+  margin-left: 10.6rem;
 
   gap: 1.6rem;
 `;

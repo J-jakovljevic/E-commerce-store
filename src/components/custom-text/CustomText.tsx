@@ -11,6 +11,7 @@ type Props = {
   width?: string;
   className?: string;
   children: React.ReactNode;
+  onClick?: () => void;
 };
 
 const CustomText: FC<Props> = ({
@@ -21,6 +22,7 @@ const CustomText: FC<Props> = ({
   width,
   className,
   children,
+  onClick,
 }) => {
   const StyledText = getFontStyles(fontStyle);
 
@@ -30,6 +32,7 @@ const CustomText: FC<Props> = ({
       color={color}
       width={width}
       className={className}
+      onClick={onClick}
     >
       <StyledText style={{ lineHeight: lineHeight || "auto" }}>
         {children}
