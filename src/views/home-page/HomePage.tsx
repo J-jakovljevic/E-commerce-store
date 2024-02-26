@@ -24,6 +24,7 @@ import colors from "utils/colors";
 import { GENERATE_ITEM } from "services/routes";
 import { productsCategories } from "utils/constants";
 import ItemCardSkeleton from "components/skeleton/item-card-skeleton/ItemCardSkeleton";
+import Pagination, { ApiResponse } from "components/pagination/Pagination";
 
 const HomePage: FC = () => {
   const [products, setProducts] = useState<Product[]>();
@@ -36,27 +37,30 @@ const HomePage: FC = () => {
 
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const fetchProducts = async () => {
+  /* useEffect(() => {
+    const fetchProducts = async (
+      skip: number,
+      limit: number
+    ): Promise<void> => {
       try {
         const fetchPromises = productsCategories.map(async (category) => {
           const response = await fetch(
-            `https://dummyjson.com/products/category/${category}`
+            `https://dummyjson.com/products?limit=${limit}&skip=${skip}`
           );
 
           if (!response.ok) {
             throw new Error(l.NETWORK_RESPONSE_WAS_NOT_OK);
           }
 
-          const data = await response.json();
+          const data: ApiResponse = await response.json();
 
-          return data.products;
+          return data;
         });
 
         const allProductsArrays = await Promise.all(fetchPromises);
         const allProducts = allProductsArrays.flat();
-
-        setProducts(allProducts);
+        console.log(allProducts);
+        // setProducts(allProducts);
       } catch (error) {
         console.log(l.ERROR_FETCHING_PRODUCTS((error as Error).message));
       } finally {
@@ -67,9 +71,42 @@ const HomePage: FC = () => {
     if (!searchText) {
       setLoading(true);
 
-      fetchProducts();
+      fetchProducts(limit, skip);
     }
-  }, [searchText]);
+  }, [searchText, productsCategories, limit, skip]); */
+
+  const fetchProducts = async (
+    skip: number,
+    limit: number
+  ): Promise<ApiResponse> => {
+    try {
+      setLoading(true);
+
+      const response = await fetch(
+        `https://dummyjson.com/products?limit=${limit}&skip=${skip}`
+      );
+
+      if (!response.ok) {
+        throw new Error(l.NETWORK_RESPONSE_WAS_NOT_OK);
+      }
+
+      const data: ApiResponse = await response.json();
+
+      setProducts(data.products);
+
+      return { products: data.products, total: data.total, skip, limit };
+    } catch (error) {
+      return Promise.reject(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (!searchText) {
+      fetchProducts(0, 10);
+    }
+  }, [searchText, productsCategories]);
 
   const fetchSearcedData = (query: string) => {
     const sanitizedQuery = encodeURIComponent(query); // encodes special characters including: , / ? : @ & = + $ #
@@ -154,6 +191,8 @@ const HomePage: FC = () => {
               ))
             : [0, 1, 2, 3].map((item) => <ItemCardSkeleton key={item} />)}
         </HomePageItemCardsWrapper>
+
+        {products && <Pagination fetchDataCallback={fetchProducts} />}
       </HomePageContentWrapper>
     </HomePageContainer>
   );
