@@ -19,13 +19,23 @@ type Props = {
   description: string;
   price: number;
   thumbnail: string;
+  thumbnailClickHandler: () => void;
 };
 
-const ItemCard: FC<Props> = ({ title, description, price, thumbnail }) => {
+const ItemCard: FC<Props> = ({
+  title,
+  description,
+  price,
+  thumbnail,
+  thumbnailClickHandler,
+}) => {
   return (
     <ItemCardContainer>
       <ItemCardThumbnailWrapper>
-        <ItemCardThumbnailStyled src={thumbnail} />
+        <ItemCardThumbnailStyled
+          src={thumbnail}
+          onClick={thumbnailClickHandler}
+        />
       </ItemCardThumbnailWrapper>
 
       <ItemCardContentWrapper>

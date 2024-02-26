@@ -5,6 +5,7 @@ import React, {
   useEffect,
   useState,
 } from "react";
+import { useNavigate } from "react-router-dom";
 
 import {
   HomePageContainer,
@@ -20,6 +21,8 @@ import { Product } from "models/productModel";
 import ItemCard from "components/item-card/ItemCard";
 import { FontEnum } from "utils/fonts";
 import colors from "utils/colors";
+import { GENERATE_ITEM } from "services/routes";
+import { productsCategories } from "utils/constants";
 
 const HomePage: FC = () => {
   const [products, setProducts] = useState<Product[]>();
@@ -29,12 +32,7 @@ const HomePage: FC = () => {
     null
   );
 
-  const productsCategories = [
-    "smartphones",
-    "laptops",
-    "mens-watches",
-    "womens-watches",
-  ];
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -108,6 +106,10 @@ const HomePage: FC = () => {
     }
   };
 
+  const onThumbnailClickHandler = (productId: number) => {
+    navigate(GENERATE_ITEM(productId.toString()));
+  };
+
   return (
     <HomePageContainer>
       <Navbar />
@@ -139,6 +141,9 @@ const HomePage: FC = () => {
                 description={product.description}
                 price={product.price}
                 thumbnail={product.thumbnail}
+                thumbnailClickHandler={() =>
+                  onThumbnailClickHandler(product.id)
+                }
               />
             ))}
         </HomePageItemCardsWrapper>

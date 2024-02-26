@@ -23,6 +23,8 @@ export const ItemCardThumbnailStyled = styled.img`
   // max-width: 42.7rem;
 
   border-radius: 2.2rem;
+
+  cursor: pointer;
 `;
 
 export const ItemCardContentWrapper = styled(Column)`

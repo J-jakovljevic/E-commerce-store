@@ -1,18 +1,21 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { Column, Row } from "utils/layout";
-import colors from "utils/colors";
 import CustomText from "components/custom-text/CustomText";
 
+const slideLeft = keyframes`
+  0% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  
+  100% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+`;
+
 export const HomePageContainer = styled(Row)`
-  height: 100%;
-
-  padding: 1.6rem;
-
-  background: ${colors.lightGray};
-
-  box-sizing: border-box;
-
-  overflow: auto;
+  animation: ${slideLeft} 251ms ease-in-out;
 `;
 
 export const HomePageContentWrapper = styled(Column)`
