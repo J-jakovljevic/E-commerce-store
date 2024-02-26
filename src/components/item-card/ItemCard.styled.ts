@@ -1,6 +1,7 @@
 import CustomText from "components/custom-text/CustomText";
 import { AddItemIcon } from "shared/icons/icons";
 import styled from "styled-components";
+import colors from "utils/colors";
 import { Column, Row } from "utils/layout";
 
 export const ItemCardContainer = styled(Column)`
@@ -53,6 +54,10 @@ export const ItemCardDescription = styled(CustomText)`
 
 export const ReadMoreLink = styled(CustomText)`
   cursor: pointer;
+
+  :hover {
+    color: ${colors.lightBlue};
+  }
 `;
 
 export const ItemCardActionWrapper = styled(Row)`
