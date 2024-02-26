@@ -7,6 +7,8 @@ const l = {
   DOLLAR_PRICE: (price: number) => `$ ${price}`,
   SEARCH_ITEM: "Search Item",
   APPLE_WATCH_SAMSUNG: "Apple Watch, Samsung S21, Macbook Pro, ...",
+  NO_RESULTS_FOUND:
+    "Sorry, no results found. Please try a different search term.",
 
   // ITEM PAGE
   BACK: "Back",

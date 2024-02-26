@@ -70,3 +70,9 @@ export const HomePageItemCardsWrapper = styled(Row)`
 
   justify-content: center;
 `;
+
+export const NoResultsFoundWrapper = styled(Row)`
+  padding: 0 29rem;
+
+  align-items: center;
+`;
