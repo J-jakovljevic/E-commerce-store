@@ -153,6 +153,9 @@ const HomePage: FC = () => {
                   thumbnailClickHandler={() =>
                     onThumbnailClickHandler(product.id)
                   }
+                  readMoreClickHandler={() =>
+                    navigate(GENERATE_ITEM(product.id.toString()))
+                  }
                 />
               ))
             ) : (

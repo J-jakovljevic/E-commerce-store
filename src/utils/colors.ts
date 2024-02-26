@@ -6,6 +6,7 @@ const colors = {
   darkGray: "#1A1F16",
   green: "#12805D",
   black: "#000000",
+  blueLink: "#0099ff",
 };
 
 export default colors;
