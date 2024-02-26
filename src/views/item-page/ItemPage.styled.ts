@@ -99,19 +99,6 @@ export const ItemPageBottomContentWrapper = styled(Column)`
   gap: 1.6rem;
 `;
 
-export const ItemPageDividerWrappeer = styled(Column)`
-  align-items: center;
-
-  .css-9mgopn-MuiDivider-root {
-    width: 85.8rem;
-
-    border-color: ${colors.gray100};
-
-    border-bottom-width: 0.3rem;
-    border-radius: 0.3rem;
-  }
-`;
-
 export const ItemPageDescriptionWrapper = styled(Column)`
   padding: 1.6rem 0.8rem;
 

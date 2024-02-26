@@ -23,9 +23,11 @@ import { FontEnum } from "utils/fonts";
 import colors from "utils/colors";
 import { GENERATE_ITEM } from "services/routes";
 import { productsCategories } from "utils/constants";
+import ItemCardSkeleton from "components/skeleton/item-card-skeleton/ItemCardSkeleton";
 
 const HomePage: FC = () => {
   const [products, setProducts] = useState<Product[]>();
+  const [loading, setLoading] = useState(true);
 
   const [searchText, setSearchText] = useState("");
   const [typingTimeout, setTypingTimeout] = useState<NodeJS.Timeout | null>(
@@ -57,10 +59,14 @@ const HomePage: FC = () => {
         setProducts(allProducts);
       } catch (error) {
         console.log(l.ERROR_FETCHING_PRODUCTS((error as Error).message));
+      } finally {
+        setLoading(false);
       }
     };
 
     if (!searchText) {
+      setLoading(true);
+
       fetchProducts();
     }
   }, [searchText]);
@@ -133,19 +139,20 @@ const HomePage: FC = () => {
         </HomePageSearchBarWrapper>
 
         <HomePageItemCardsWrapper>
-          {products &&
-            products.map((product) => (
-              <ItemCard
-                key={product.id}
-                title={product.title}
-                description={product.description}
-                price={product.price}
-                thumbnail={product.thumbnail}
-                thumbnailClickHandler={() =>
-                  onThumbnailClickHandler(product.id)
-                }
-              />
-            ))}
+          {products && !loading
+            ? products.map((product) => (
+                <ItemCard
+                  key={product.id}
+                  title={product.title}
+                  description={product.description}
+                  price={product.price}
+                  thumbnail={product.thumbnail}
+                  thumbnailClickHandler={() =>
+                    onThumbnailClickHandler(product.id)
+                  }
+                />
+              ))
+            : [0, 1, 2, 3].map((item) => <ItemCardSkeleton key={item} />)}
         </HomePageItemCardsWrapper>
       </HomePageContentWrapper>
     </HomePageContainer>

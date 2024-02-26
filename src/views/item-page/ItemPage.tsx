@@ -10,7 +10,6 @@ import {
   ItemPageContainer,
   ItemPageContentWrapper,
   ItemPageDescriptionWrapper,
-  ItemPageDividerWrappeer,
   ItemPageHeaderWrapper,
   ItemPageRatingWrapper,
   ItemPageThumbnailStyled,
@@ -26,9 +25,12 @@ import colors from "utils/colors";
 import { HOME_PAGE_ROUTE } from "services/routes";
 import { productsCategories } from "utils/constants";
 import { Product } from "models/productModel";
+import ItemPageContentSkeleton from "components/skeleton/item-page-content-skeleton/ItemPageContentSkeleton";
+import { ItemPageDividerWrapper } from "utils/layout";
 
 const ItemPage: FC = () => {
   const [item, setItem] = useState<Product>();
+  const [loading, setLoading] = useState(true);
 
   const navigate = useNavigate();
 
@@ -65,11 +67,12 @@ const ItemPage: FC = () => {
 
           setItem(data);
         })
-        .catch(() => navigate(HOME_PAGE_ROUTE));
+        .catch(() => navigate(HOME_PAGE_ROUTE))
+        .finally(() => setLoading(false));
     }
   }, [itemId]);
 
-  return item ? (
+  return (
     <ItemPageContainer>
       <Navbar />
 
@@ -85,84 +88,93 @@ const ItemPage: FC = () => {
           </CustomText>
         </BackIconWrapper>
 
-        <ItemPageTopContentWrapper>
-          <ItemPageThumbnailWrapper>
-            <ItemPageThumbnailStyled src={item.thumbnail} />
-          </ItemPageThumbnailWrapper>
+        {item && !loading ? (
+          <>
+            <ItemPageTopContentWrapper>
+              <ItemPageThumbnailWrapper>
+                <ItemPageThumbnailStyled src={item.thumbnail} />
+              </ItemPageThumbnailWrapper>
 
-          <ItemPageTopContentTextWrapper>
-            <ItemPageHeaderWrapper>
-              <CustomText
-                fontStyle={FontEnum.CabinBold61}
-                color={colors.darkGray}
-              >
-                {item.title}
-              </CustomText>
+              <ItemPageTopContentTextWrapper>
+                <ItemPageHeaderWrapper>
+                  <CustomText
+                    fontStyle={FontEnum.CabinBold61}
+                    color={colors.darkGray}
+                  >
+                    {item.title}
+                  </CustomText>
 
-              <CustomText
-                fontStyle={FontEnum.CabinMedium31}
-                color={colors.gray100}
-              >
-                {item.brand}
-              </CustomText>
-            </ItemPageHeaderWrapper>
+                  <CustomText
+                    fontStyle={FontEnum.CabinMedium31}
+                    color={colors.gray100}
+                  >
+                    {item.brand}
+                  </CustomText>
+                </ItemPageHeaderWrapper>
 
-            <ItemPageRatingWrapper>
-              <Rating
-                name="read-only"
-                value={item.rating}
-                size="large"
-                readOnly
-                precision={0.01}
-              />
+                <ItemPageRatingWrapper>
+                  <Rating
+                    name="read-only"
+                    value={item.rating}
+                    size="large"
+                    readOnly
+                    precision={0.01}
+                  />
 
-              <CustomText
-                fontStyle={FontEnum.CabinRegular20}
-                color={colors.green}
-              >
-                {l.RATING(item.rating)}
-              </CustomText>
-            </ItemPageRatingWrapper>
+                  <CustomText
+                    fontStyle={FontEnum.CabinRegular20}
+                    color={colors.green}
+                  >
+                    {l.RATING(item.rating)}
+                  </CustomText>
+                </ItemPageRatingWrapper>
 
-            <CustomText
-              fontStyle={FontEnum.CabinMedium31}
-              color={colors.darkGray}
-            >
-              {l.DOLLAR_PRICE(item.price)}
-            </CustomText>
+                <CustomText
+                  fontStyle={FontEnum.CabinMedium31}
+                  color={colors.darkGray}
+                >
+                  {l.DOLLAR_PRICE(item.price)}
+                </CustomText>
 
-            <CustomText
-              fontStyle={FontEnum.CabinRegular20}
-              color={colors.black}
-              width="57.5rem"
-              className="description"
-            >
-              {item.description}
-            </CustomText>
-          </ItemPageTopContentTextWrapper>
-        </ItemPageTopContentWrapper>
+                <CustomText
+                  fontStyle={FontEnum.CabinRegular20}
+                  color={colors.black}
+                  width="57.5rem"
+                  className="description"
+                >
+                  {item.description}
+                </CustomText>
+              </ItemPageTopContentTextWrapper>
+            </ItemPageTopContentWrapper>
 
-        <ItemPageBottomContentWrapper>
-          <ItemPageDividerWrappeer>
-            <Divider />
-          </ItemPageDividerWrappeer>
+            <ItemPageBottomContentWrapper>
+              <ItemPageDividerWrapper>
+                <Divider />
+              </ItemPageDividerWrapper>
 
-          <ItemPageDescriptionWrapper>
-            <CustomText
-              fontStyle={FontEnum.CabinMedium31}
-              color={colors.darkGray}
-            >
-              {l.DESCRIPTION}
-            </CustomText>
+              <ItemPageDescriptionWrapper>
+                <CustomText
+                  fontStyle={FontEnum.CabinMedium31}
+                  color={colors.darkGray}
+                >
+                  {l.DESCRIPTION}
+                </CustomText>
 
-            <CustomText fontStyle={FontEnum.CabinRegular20} color={colors.gray}>
-              {item.description}
-            </CustomText>
-          </ItemPageDescriptionWrapper>
-        </ItemPageBottomContentWrapper>
+                <CustomText
+                  fontStyle={FontEnum.CabinRegular20}
+                  color={colors.gray}
+                >
+                  {item.description}
+                </CustomText>
+              </ItemPageDescriptionWrapper>
+            </ItemPageBottomContentWrapper>
+          </>
+        ) : (
+          <ItemPageContentSkeleton />
+        )}
       </ItemPageContentWrapper>
     </ItemPageContainer>
-  ) : null;
+  );
 };
 
 export default ItemPage;
