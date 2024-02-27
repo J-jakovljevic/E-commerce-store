@@ -9,11 +9,12 @@ import { useNavigate } from "react-router-dom";
 
 import {
   HomePageContainer,
-  HomePageContentWrapper,
+  HomePageContentContainer,
   HomePageItemCardsWrapper,
   HomePageSearchBarLabel,
   HomePageSearchBarWrapper,
   HomePageSearchBarStyled,
+  HomePageContentWrapper,
 } from "./HomePage.styled";
 import Navbar from "components/navbar/Navbar";
 import l from "languages/en";
@@ -24,7 +25,7 @@ import colors from "utils/colors";
 import { GENERATE_ITEM } from "services/routes";
 import { productsCategories } from "utils/constants";
 import ItemCardSkeleton from "components/skeleton/item-card-skeleton/ItemCardSkeleton";
-import Pagination, { ApiResponse } from "components/pagination/Pagination";
+import Pagination from "components/pagination/Pagination";
 
 const HomePage: FC = () => {
   const [products, setProducts] = useState<Product[]>();
@@ -35,50 +36,12 @@ const HomePage: FC = () => {
     null
   );
 
+  const [totalPages, setTotalPages] = useState(1);
+  const [currentPage, setCurrentPage] = useState(1);
+
   const navigate = useNavigate();
 
-  /* useEffect(() => {
-    const fetchProducts = async (
-      skip: number,
-      limit: number
-    ): Promise<void> => {
-      try {
-        const fetchPromises = productsCategories.map(async (category) => {
-          const response = await fetch(
-            `https://dummyjson.com/products?limit=${limit}&skip=${skip}`
-          );
-
-          if (!response.ok) {
-            throw new Error(l.NETWORK_RESPONSE_WAS_NOT_OK);
-          }
-
-          const data: ApiResponse = await response.json();
-
-          return data;
-        });
-
-        const allProductsArrays = await Promise.all(fetchPromises);
-        const allProducts = allProductsArrays.flat();
-        console.log(allProducts);
-        // setProducts(allProducts);
-      } catch (error) {
-        console.log(l.ERROR_FETCHING_PRODUCTS((error as Error).message));
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    if (!searchText) {
-      setLoading(true);
-
-      fetchProducts(limit, skip);
-    }
-  }, [searchText, productsCategories, limit, skip]); */
-
-  const fetchProducts = async (
-    skip: number,
-    limit: number
-  ): Promise<ApiResponse> => {
+  const fetchProducts = async (skip: number, limit: number) => {
     try {
       setLoading(true);
 
@@ -90,13 +53,12 @@ const HomePage: FC = () => {
         throw new Error(l.NETWORK_RESPONSE_WAS_NOT_OK);
       }
 
-      const data: ApiResponse = await response.json();
+      const data = await response.json();
 
       setProducts(data.products);
-
-      return { products: data.products, total: data.total, skip, limit };
+      setTotalPages(Math.ceil(data.total / limit));
     } catch (error) {
-      return Promise.reject(error);
+      console.log(l.ERROR_FETCHING_PRODUCTS((error as Error).message));
     } finally {
       setLoading(false);
     }
@@ -104,18 +66,20 @@ const HomePage: FC = () => {
 
   useEffect(() => {
     if (!searchText) {
-      fetchProducts(0, 10);
+      fetchProducts((currentPage - 1) * 10, 10);
     }
-  }, [searchText, productsCategories]);
+  }, [searchText, productsCategories, currentPage]);
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+  };
 
   const fetchSearcedData = (query: string) => {
     const sanitizedQuery = encodeURIComponent(query); // encodes special characters including: , / ? : @ & = + $ #
 
     fetch(`https://dummyjson.com/products/search?q=${sanitizedQuery}`)
       .then((response) => response.json())
-      .then((data) => {
-        setProducts(data.products);
-      });
+      .then((data) => setProducts(data.products));
   };
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -157,43 +121,49 @@ const HomePage: FC = () => {
     <HomePageContainer>
       <Navbar />
 
-      <HomePageContentWrapper>
-        <HomePageSearchBarWrapper>
-          <HomePageSearchBarLabel
-            fontStyle={FontEnum.CabinRegular16}
-            color={colors.gray}
-          >
-            {l.SEARCH_ITEM}
-          </HomePageSearchBarLabel>
+      <HomePageContentContainer>
+        <HomePageContentWrapper>
+          <HomePageSearchBarWrapper>
+            <HomePageSearchBarLabel
+              fontStyle={FontEnum.CabinRegular16}
+              color={colors.gray}
+            >
+              {l.SEARCH_ITEM}
+            </HomePageSearchBarLabel>
 
-          <HomePageSearchBarStyled
-            type="text"
-            placeholder={l.APPLE_WATCH_SAMSUNG}
-            value={searchText}
-            onChange={handleInputChange}
-            onKeyDown={handleKeyPress}
+            <HomePageSearchBarStyled
+              type="text"
+              placeholder={l.APPLE_WATCH_SAMSUNG}
+              value={searchText}
+              onChange={handleInputChange}
+              onKeyDown={handleKeyPress}
+            />
+          </HomePageSearchBarWrapper>
+
+          <HomePageItemCardsWrapper>
+            {products && !loading
+              ? products.map((product) => (
+                  <ItemCard
+                    key={product.id}
+                    title={product.title}
+                    description={product.description}
+                    price={product.price}
+                    thumbnail={product.thumbnail}
+                    thumbnailClickHandler={() =>
+                      onThumbnailClickHandler(product.id)
+                    }
+                  />
+                ))
+              : [0, 1, 2, 3].map((item) => <ItemCardSkeleton key={item} />)}
+          </HomePageItemCardsWrapper>
+
+          <Pagination
+            totalPages={totalPages}
+            currentPage={currentPage}
+            onPageChange={handlePageChange}
           />
-        </HomePageSearchBarWrapper>
-
-        <HomePageItemCardsWrapper>
-          {products && !loading
-            ? products.map((product) => (
-                <ItemCard
-                  key={product.id}
-                  title={product.title}
-                  description={product.description}
-                  price={product.price}
-                  thumbnail={product.thumbnail}
-                  thumbnailClickHandler={() =>
-                    onThumbnailClickHandler(product.id)
-                  }
-                />
-              ))
-            : [0, 1, 2, 3].map((item) => <ItemCardSkeleton key={item} />)}
-        </HomePageItemCardsWrapper>
-
-        {products && <Pagination fetchDataCallback={fetchProducts} />}
-      </HomePageContentWrapper>
+        </HomePageContentWrapper>
+      </HomePageContentContainer>
     </HomePageContainer>
   );
 };

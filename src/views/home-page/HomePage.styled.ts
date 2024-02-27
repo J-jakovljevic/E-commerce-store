@@ -18,7 +18,7 @@ export const HomePageContainer = styled(Row)`
   animation: ${slideLeft} 251ms ease-in-out;
 `;
 
-export const HomePageContentWrapper = styled(Column)`
+export const HomePageContentContainer = styled(Column)`
   width: 100%;
   height: 100%;
 
@@ -27,6 +27,16 @@ export const HomePageContentWrapper = styled(Column)`
   gap: 1.8rem;
 
   padding: 0.8rem 22.6rem 3.4rem 20.3rem;
+`;
+
+export const HomePageContentWrapper = styled(Column)`
+  width: 100%;
+
+  align-items: center;
+
+  padding-bottom: 4rem;
+
+  gap: 3rem;
 `;
 
 export const HomePageSearchBarWrapper = styled(Column)`
