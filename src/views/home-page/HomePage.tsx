@@ -32,7 +32,9 @@ import useMediaQuery from "shared/hooks/useMediaQuery";
 
 const HomePage: FC = () => {
   const [products, setProducts] = useState<Product[]>();
+
   const [loading, setLoading] = useState(true);
+  const [isNavbarOpen, setIsNavbarOpen] = useState(false);
 
   const [searchText, setSearchText] = useState("");
   const [typingTimeout, setTypingTimeout] = useState<NodeJS.Timeout | null>(
@@ -125,11 +127,18 @@ const HomePage: FC = () => {
 
   return (
     <HomePageContainer>
-      {!breakpoint565 && <Navbar />}
+      {(!breakpoint565 || isNavbarOpen) && (
+        <Navbar
+          isNavbarOpen={isNavbarOpen}
+          modalMaskClickHandler={() => setIsNavbarOpen(false)}
+        />
+      )}
 
       <HomePageContentWrapper>
         <HomePageTopContentWrapper>
-          {breakpoint565 && <MenuIconStyled />}
+          {breakpoint565 && (
+            <MenuIconStyled onClick={() => setIsNavbarOpen(true)} />
+          )}
 
           <HomePageSearchBarWrapper>
             <HomePageSearchBarLabel

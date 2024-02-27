@@ -20,6 +20,14 @@ export const NavbarContainer = styled(Column)`
   box-sizing: border-box;
 
   background: ${colors.white};
+
+  z-index: 50;
+
+  @media (max-width: 565px) {
+    z-index: 200;
+
+    box-shadow: 3px 3px 3px 3px rgba(0, 0, 0, 0.3);
+  }
 `;
 
 export const LogoIconStyled = styled(LogoIcon)`

@@ -7,16 +7,31 @@ import {
   LogoIconStyled,
   ExitIconStyled,
 } from "./Navbar.styled";
+import useMediaQuery from "shared/hooks/useMediaQuery";
+import { ModalMask } from "utils/layout";
 
-const Navbar: FC = () => {
+type Props = {
+  isNavbarOpen?: boolean;
+  modalMaskClickHandler?: () => void;
+};
+
+const Navbar: FC<Props> = ({ isNavbarOpen, modalMaskClickHandler }) => {
+  const breakpoint565 = useMediaQuery("(max-width: 565px)");
+
   const navigate = useNavigate();
 
   return (
-    <NavbarContainer>
-      <LogoIconStyled onClick={() => navigate(HOME_PAGE_ROUTE)} />
+    <>
+      {(breakpoint565 || isNavbarOpen) && (
+        <ModalMask onClick={modalMaskClickHandler} />
+      )}
 
-      <ExitIconStyled />
-    </NavbarContainer>
+      <NavbarContainer>
+        <LogoIconStyled onClick={() => navigate(HOME_PAGE_ROUTE)} />
+
+        <ExitIconStyled />
+      </NavbarContainer>
+    </>
   );
 };
 
