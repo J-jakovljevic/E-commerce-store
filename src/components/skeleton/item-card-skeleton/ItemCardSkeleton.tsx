@@ -6,12 +6,16 @@ import {
   ItemCardSkeletonContainer,
   ItemCardSkeletonContentWrapper,
 } from "./ItemCardSkeleton.styled";
+import useMediaQuery from "shared/hooks/useMediaQuery";
 
 const ItemCardSkeleton: FC = () => {
+  const breakpoint1024 = useMediaQuery("(max-width: 1024px)");
+  const breakpoint495 = useMediaQuery("(max-width: 495px)");
+
   return (
     <ItemCardSkeletonContainer>
       <Skeleton
-        width={427}
+        width={breakpoint1024 ? "100%" : 427}
         height={232}
         style={{
           borderRadius: "2.2rem",
@@ -21,7 +25,7 @@ const ItemCardSkeleton: FC = () => {
       <ItemCardSkeletonContentWrapper>
         <Skeleton width={140} height={30} />
 
-        <Skeleton width={300} height={20} />
+        <Skeleton width={breakpoint495 ? "100%" : 300} height={20} />
 
         <ItemCardSkeletonActionWrapper>
           <Skeleton width={50} height={25} />

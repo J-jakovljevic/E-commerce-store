@@ -14,6 +14,16 @@ export const ItemCardSkeletonContainer = styled(Column)`
   .css-1e1x4vv-MuiSkeleton-root {
     transform: unset;
   }
+
+  @media (max-width: 495px) {
+    width: 34.5rem;
+
+    padding: 1.6rem 1rem;
+  }
+
+  @media (max-width: 422px) {
+    width: 100%;
+  }
 `;
 
 export const ItemCardSkeletonContentWrapper = styled(Column)`
