@@ -21,7 +21,7 @@ export const HomePageContainer = styled(Row)`
   animation: ${slideLeft} 251ms ease-in-out;
 `;
 
-export const HomePageContentWrapper = styled(Column)`
+export const HomePageContentContainer = styled(Column)`
   width: 100%;
   height: 100%;
 
@@ -50,6 +50,16 @@ export const HomePageTopContentWrapper = styled(Row)`
 
     gap: 0.8rem;
   }
+`;
+
+export const HomePageContentWrapper = styled(Column)`
+  width: 100%;
+
+  align-items: center;
+
+  padding-bottom: 4rem;
+
+  gap: 3rem;
 `;
 
 export const HomePageSearchBarWrapper = styled(Column)`
@@ -116,4 +126,6 @@ export const HomePageItemCardsWrapper = styled(Row)`
 
 export const NoResultsFoundWrapper = styled(Row)`
   align-items: center;
+
+  padding: 5rem 0;
 `;
