@@ -26,7 +26,7 @@ export const NavbarContainer = styled(Column)`
   @media (max-width: 565px) {
     z-index: 200;
 
-    box-shadow: 3px 3px 3px 3px rgba(0, 0, 0, 0.3);
+    box-shadow: 3px 3px 3px 3px rgba(0, 0, 0, 0.1);
   }
 `;
 

@@ -122,6 +122,10 @@ export const HomePageItemCardsWrapper = styled(Row)`
   gap: 3.2rem;
 
   justify-content: center;
+
+  @media (max-width: 620px) {
+    justify-content: flex-start;
+  }
 `;
 
 export const NoResultsFoundWrapper = styled(Row)`

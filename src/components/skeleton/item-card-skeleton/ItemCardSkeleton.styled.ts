@@ -15,7 +15,11 @@ export const ItemCardSkeletonContainer = styled(Column)`
     transform: unset;
   }
 
-  @media (max-width: 495px) {
+  @media (max-width: 1024px) {
+    width: unset;
+  }
+
+  @media (max-width: 500px) {
     width: 34.5rem;
 
     padding: 1.6rem 1rem;
