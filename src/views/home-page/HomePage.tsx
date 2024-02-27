@@ -15,6 +15,8 @@ import {
   HomePageSearchBarWrapper,
   HomePageSearchBarStyled,
   NoResultsFoundWrapper,
+  MenuIconStyled,
+  HomePageTopContentWrapper,
 } from "./HomePage.styled";
 import Navbar from "components/navbar/Navbar";
 import l from "languages/en";
@@ -26,6 +28,7 @@ import { GENERATE_ITEM } from "services/routes";
 import { productsCategories } from "utils/constants";
 import ItemCardSkeleton from "components/skeleton/item-card-skeleton/ItemCardSkeleton";
 import CustomText from "components/custom-text/CustomText";
+import useMediaQuery from "shared/hooks/useMediaQuery";
 
 const HomePage: FC = () => {
   const [products, setProducts] = useState<Product[]>();
@@ -37,6 +40,8 @@ const HomePage: FC = () => {
   );
 
   const navigate = useNavigate();
+
+  const breakpoint565 = useMediaQuery("(max-width: 565px)");
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -120,25 +125,29 @@ const HomePage: FC = () => {
 
   return (
     <HomePageContainer>
-      <Navbar />
+      {!breakpoint565 && <Navbar />}
 
       <HomePageContentWrapper>
-        <HomePageSearchBarWrapper>
-          <HomePageSearchBarLabel
-            fontStyle={FontEnum.CabinRegular16}
-            color={colors.gray}
-          >
-            {l.SEARCH_ITEM}
-          </HomePageSearchBarLabel>
+        <HomePageTopContentWrapper>
+          {breakpoint565 && <MenuIconStyled />}
 
-          <HomePageSearchBarStyled
-            type="text"
-            placeholder={l.APPLE_WATCH_SAMSUNG}
-            value={searchText}
-            onChange={handleInputChange}
-            onKeyDown={handleKeyPress}
-          />
-        </HomePageSearchBarWrapper>
+          <HomePageSearchBarWrapper>
+            <HomePageSearchBarLabel
+              fontStyle={FontEnum.CabinRegular16}
+              color={colors.gray}
+            >
+              {l.SEARCH_ITEM}
+            </HomePageSearchBarLabel>
+
+            <HomePageSearchBarStyled
+              type="text"
+              placeholder={l.APPLE_WATCH_SAMSUNG}
+              value={searchText}
+              onChange={handleInputChange}
+              onKeyDown={handleKeyPress}
+            />
+          </HomePageSearchBarWrapper>
+        </HomePageTopContentWrapper>
 
         <HomePageItemCardsWrapper>
           {products && !loading ? (

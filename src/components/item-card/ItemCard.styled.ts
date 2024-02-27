@@ -16,10 +16,24 @@ export const ItemCardContainer = styled(Column)`
   gap: 0.8rem;
 
   box-sizing: border-box;
+
+  @media (max-width: 495px) {
+    min-width: 34.5rem;
+
+    padding: 1.6rem 1rem;
+  }
+
+  @media (max-width: 422px) {
+    min-width: 100%;
+  }
 `;
 
 export const ItemCardThumbnailWrapper = styled(Row)`
   width: fit-content;
+
+  @media (max-width: 422px) {
+    width: 100%;
+  }
 `;
 
 export const ItemCardThumbnailStyled = styled.img`
