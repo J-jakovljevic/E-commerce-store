@@ -1,6 +1,7 @@
 import styled, { keyframes } from "styled-components";
 import { Column, Row } from "utils/layout";
 import CustomText from "components/custom-text/CustomText";
+import { MenuIcon } from "shared/icons/icons";
 
 const slideLeft = keyframes`
   0% {
@@ -29,6 +30,26 @@ export const HomePageContentContainer = styled(Column)`
   gap: 1.8rem;
 
   padding: 0.8rem 22.6rem 3.4rem 20.3rem;
+
+  @media (max-width: 800px) {
+    padding: 0.8rem 4rem 3.4rem 10rem;
+  }
+
+  @media (max-width: 565px) {
+    padding: 0.8rem 1rem 3.4rem 1rem;
+  }
+
+  @media (max-width: 420px) {
+    box-sizing: border-box;
+  }
+`;
+
+export const HomePageTopContentWrapper = styled(Row)`
+  @media (max-width: 565px) {
+    width: 100%;
+
+    gap: 0.8rem;
+  }
 `;
 
 export const HomePageContentWrapper = styled(Column)`
@@ -47,6 +68,22 @@ export const HomePageSearchBarWrapper = styled(Column)`
   padding: 0.8rem;
 
   gap: 0.8rem;
+
+  @media (max-width: 495px) {
+    width: 100%;
+  }
+`;
+
+export const MenuIconStyled = styled(MenuIcon)`
+  position: relative;
+  top: 5.5rem;
+
+  min-width: 2.4rem;
+  min-height: 2.4rem;
+  width: 2.4rem;
+  height: 2.4rem;
+
+  cursor: pointer;
 `;
 
 export const HomePageSearchBarLabel = styled(CustomText)`
@@ -70,6 +107,10 @@ export const HomePageSearchBarStyled = styled.input`
   font-family: "Cabin";
   font-weight: 500;
   font-size: 2rem;
+
+  @media (max-width: 422px) {
+    width: 100%;
+  }
 `;
 
 export const HomePageItemCardsWrapper = styled(Row)`
@@ -81,6 +122,10 @@ export const HomePageItemCardsWrapper = styled(Row)`
   gap: 3.2rem;
 
   justify-content: center;
+
+  @media (max-width: 620px) {
+    justify-content: flex-start;
+  }
 `;
 
 export const NoResultsFoundWrapper = styled(Row)`

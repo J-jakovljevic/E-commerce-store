@@ -1,6 +1,7 @@
 import React, { FC } from "react";
 import PaginationUI from "@mui/material/Pagination";
 import { PaginationWrapper } from "./Pagination.styled";
+import useMediaQuery from "shared/hooks/useMediaQuery";
 
 type Props = {
   totalPages: number;
@@ -9,6 +10,8 @@ type Props = {
 };
 
 const Pagination: FC<Props> = ({ totalPages, currentPage, onPageChange }) => {
+  const breakpoint500 = useMediaQuery("(max-width: 500px)");
+
   const handlePageChange = (
     event: React.ChangeEvent<unknown>,
     value: number
@@ -23,7 +26,7 @@ const Pagination: FC<Props> = ({ totalPages, currentPage, onPageChange }) => {
         page={currentPage}
         onChange={handlePageChange}
         variant="outlined"
-        size="large"
+        size={breakpoint500 ? "small" : "large"}
       />
     </PaginationWrapper>
   );

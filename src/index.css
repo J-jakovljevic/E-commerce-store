@@ -18,3 +18,21 @@ code {
 html {
   font-size: 62.5%; /* 1rem equals 10px (62.5% of 16px, which is the default browser font size) */
 }
+
+@media only screen and (max-width: 768px) {
+  html {
+    font-size: 37.5%;
+  }
+}
+
+@media only screen and (max-width: 900px) {
+  html {
+    font-size: 44.5%;
+  }
+}
+
+@media only screen and (max-width: 1024px) {
+  html {
+    font-size: 50.5%;
+  }
+}

@@ -16,6 +16,8 @@ import {
   HomePageSearchBarStyled,
   NoResultsFoundWrapper,
   HomePageContentWrapper,
+  MenuIconStyled,
+  HomePageTopContentWrapper,
 } from "./HomePage.styled";
 import Navbar from "components/navbar/Navbar";
 import l from "languages/en";
@@ -28,10 +30,13 @@ import { productsCategories } from "utils/constants";
 import ItemCardSkeleton from "components/skeleton/item-card-skeleton/ItemCardSkeleton";
 import CustomText from "components/custom-text/CustomText";
 import Pagination from "components/pagination/Pagination";
+import useMediaQuery from "shared/hooks/useMediaQuery";
 
 const HomePage: FC = () => {
   const [products, setProducts] = useState<Product[]>();
+
   const [loading, setLoading] = useState(true);
+  const [isNavbarOpen, setIsNavbarOpen] = useState(false);
 
   const [searchText, setSearchText] = useState("");
   const [typingTimeout, setTypingTimeout] = useState<NodeJS.Timeout | null>(
@@ -42,6 +47,8 @@ const HomePage: FC = () => {
   const [currentPage, setCurrentPage] = useState(1);
 
   const navigate = useNavigate();
+
+  const breakpoint565 = useMediaQuery("(max-width: 565px)");
 
   const fetchProducts = async (skip: number, limit: number) => {
     try {
@@ -121,26 +128,37 @@ const HomePage: FC = () => {
 
   return (
     <HomePageContainer>
-      <Navbar />
+      {(!breakpoint565 || isNavbarOpen) && (
+        <Navbar
+          isNavbarOpen={isNavbarOpen}
+          modalMaskClickHandler={() => setIsNavbarOpen(false)}
+        />
+      )}
 
       <HomePageContentContainer>
         <HomePageContentWrapper>
-          <HomePageSearchBarWrapper>
-            <HomePageSearchBarLabel
-              fontStyle={FontEnum.CabinRegular16}
-              color={colors.gray}
-            >
-              {l.SEARCH_ITEM}
-            </HomePageSearchBarLabel>
+          <HomePageTopContentWrapper>
+            {breakpoint565 && (
+              <MenuIconStyled onClick={() => setIsNavbarOpen(true)} />
+            )}
 
-            <HomePageSearchBarStyled
-              type="text"
-              placeholder={l.APPLE_WATCH_SAMSUNG}
-              value={searchText}
-              onChange={handleInputChange}
-              onKeyDown={handleKeyPress}
-            />
-          </HomePageSearchBarWrapper>
+            <HomePageSearchBarWrapper>
+              <HomePageSearchBarLabel
+                fontStyle={FontEnum.CabinRegular16}
+                color={colors.gray}
+              >
+                {l.SEARCH_ITEM}
+              </HomePageSearchBarLabel>
+
+              <HomePageSearchBarStyled
+                type="text"
+                placeholder={l.APPLE_WATCH_SAMSUNG}
+                value={searchText}
+                onChange={handleInputChange}
+                onKeyDown={handleKeyPress}
+              />
+            </HomePageSearchBarWrapper>
+          </HomePageTopContentWrapper>
 
           <HomePageItemCardsWrapper>
             {products && !loading ? (
