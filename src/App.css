@@ -11,6 +11,12 @@
 }
 
 @font-face {
+  font-family: "Cabin-Italic";
+  src: url(./assets/fonts/cabin/Cabin-Italic.ttf);
+  font-weight: normal;
+}
+
+@font-face {
   font-family: "Cabin-Medium";
   src: url(./assets/fonts/cabin/Cabin-Medium.ttf);
   font-weight: normal;

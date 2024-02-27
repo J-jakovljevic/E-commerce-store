@@ -5,7 +5,10 @@ import colors from "utils/colors";
 import { ExitIcon, LogoIcon } from "shared/icons/icons";
 
 export const NavbarContainer = styled(Column)`
+  position: fixed;
+
   width: 7.2rem;
+  height: calc(100% - 3rem);
 
   justify-content: space-between;
   align-items: center;
@@ -13,6 +16,8 @@ export const NavbarContainer = styled(Column)`
   padding: 0.8rem 1.2rem;
 
   border-radius: 0.8rem;
+
+  box-sizing: border-box;
 
   background: ${colors.white};
 `;

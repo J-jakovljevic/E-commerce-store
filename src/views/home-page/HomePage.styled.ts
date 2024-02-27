@@ -15,6 +15,8 @@ const slideLeft = keyframes`
 `;
 
 export const HomePageContainer = styled(Row)`
+  width: 100%;
+
   animation: ${slideLeft} 251ms ease-in-out;
 `;
 
@@ -79,4 +81,8 @@ export const HomePageItemCardsWrapper = styled(Row)`
   gap: 3.2rem;
 
   justify-content: center;
+`;
+
+export const NoResultsFoundWrapper = styled(Row)`
+  align-items: center;
 `;

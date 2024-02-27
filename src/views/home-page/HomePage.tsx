@@ -14,6 +14,7 @@ import {
   HomePageSearchBarLabel,
   HomePageSearchBarWrapper,
   HomePageSearchBarStyled,
+  NoResultsFoundWrapper,
   HomePageContentWrapper,
 } from "./HomePage.styled";
 import Navbar from "components/navbar/Navbar";
@@ -25,6 +26,7 @@ import colors from "utils/colors";
 import { GENERATE_ITEM } from "services/routes";
 import { productsCategories } from "utils/constants";
 import ItemCardSkeleton from "components/skeleton/item-card-skeleton/ItemCardSkeleton";
+import CustomText from "components/custom-text/CustomText";
 import Pagination from "components/pagination/Pagination";
 
 const HomePage: FC = () => {
@@ -141,8 +143,9 @@ const HomePage: FC = () => {
           </HomePageSearchBarWrapper>
 
           <HomePageItemCardsWrapper>
-            {products && !loading
-              ? products.map((product) => (
+            {products && !loading ? (
+              products.length !== 0 ? (
+                products.map((product) => (
                   <ItemCard
                     key={product.id}
                     title={product.title}
@@ -152,9 +155,24 @@ const HomePage: FC = () => {
                     thumbnailClickHandler={() =>
                       onThumbnailClickHandler(product.id)
                     }
+                    readMoreClickHandler={() =>
+                      navigate(GENERATE_ITEM(product.id.toString()))
+                    }
                   />
                 ))
-              : [0, 1, 2, 3].map((item) => <ItemCardSkeleton key={item} />)}
+              ) : (
+                <NoResultsFoundWrapper>
+                  <CustomText
+                    fontStyle={FontEnum.CabinRegular20}
+                    color={colors.gray}
+                  >
+                    {l.NO_RESULTS_FOUND}
+                  </CustomText>
+                </NoResultsFoundWrapper>
+              )
+            ) : (
+              [0, 1, 2, 3].map((item) => <ItemCardSkeleton key={item} />)
+            )}
           </HomePageItemCardsWrapper>
 
           <Pagination
