@@ -175,11 +175,13 @@ const HomePage: FC = () => {
             )}
           </HomePageItemCardsWrapper>
 
-          <Pagination
-            totalPages={totalPages}
-            currentPage={currentPage}
-            onPageChange={handlePageChange}
-          />
+          {products && products.length !== 0 && (
+            <Pagination
+              totalPages={totalPages}
+              currentPage={currentPage}
+              onPageChange={handlePageChange}
+            />
+          )}
         </HomePageContentWrapper>
       </HomePageContentContainer>
     </HomePageContainer>

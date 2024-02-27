@@ -85,4 +85,6 @@ export const HomePageItemCardsWrapper = styled(Row)`
 
 export const NoResultsFoundWrapper = styled(Row)`
   align-items: center;
+
+  padding: 5rem 0;
 `;
