@@ -23,7 +23,7 @@ export const NavbarContainer = styled(Column)`
 
   z-index: 50;
 
-  @media (max-width: 565px) {
+  @media (max-width: 620px) {
     z-index: 200;
 
     box-shadow: 3px 3px 3px 3px rgba(0, 0, 0, 0.1);

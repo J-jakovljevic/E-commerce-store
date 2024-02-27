@@ -1,7 +1,6 @@
 import styled, { keyframes } from "styled-components";
 import { Column, Row } from "utils/layout";
 import CustomText from "components/custom-text/CustomText";
-import { MenuIcon } from "shared/icons/icons";
 
 const slideLeft = keyframes`
   0% {
@@ -72,18 +71,6 @@ export const HomePageSearchBarWrapper = styled(Column)`
   @media (max-width: 495px) {
     width: 100%;
   }
-`;
-
-export const MenuIconStyled = styled(MenuIcon)`
-  position: relative;
-  top: 5.5rem;
-
-  min-width: 2.4rem;
-  min-height: 2.4rem;
-  width: 2.4rem;
-  height: 2.4rem;
-
-  cursor: pointer;
 `;
 
 export const HomePageSearchBarLabel = styled(CustomText)`

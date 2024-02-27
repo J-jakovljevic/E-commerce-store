@@ -7,7 +7,9 @@ import {
   BackIconStyled,
   BackIconWrapper,
   ItemPageBottomContentWrapper,
+  ItemPageButtonsWrapper,
   ItemPageContainer,
+  ItemPageContentResponsiveWrapper,
   ItemPageContentWrapper,
   ItemPageDescriptionWrapper,
   ItemPageHeaderWrapper,
@@ -25,15 +27,21 @@ import colors from "utils/colors";
 import { HOME_PAGE_ROUTE } from "services/routes";
 import { Product } from "models/productModel";
 import ItemPageContentSkeleton from "components/skeleton/item-page-content-skeleton/ItemPageContentSkeleton";
-import { ItemPageDividerWrapper } from "utils/layout";
+import { ItemPageDividerWrapper, MenuIconStyled } from "utils/layout";
+import useMediaQuery from "shared/hooks/useMediaQuery";
 
 const ItemPage: FC = () => {
   const [item, setItem] = useState<Product>();
   const [loading, setLoading] = useState(true);
 
+  const [isNavbarOpen, setIsNavbarOpen] = useState(false);
+
   const navigate = useNavigate();
 
   const { itemId } = useParams();
+
+  const breakpoint620 = useMediaQuery("(max-width: 620px)");
+  const breakpoint800 = useMediaQuery("(max-width: 800px)");
 
   useEffect(() => {
     if (itemId) {
@@ -64,22 +72,33 @@ const ItemPage: FC = () => {
 
   return (
     <ItemPageContainer>
-      <Navbar />
+      {(isNavbarOpen || !breakpoint620) && (
+        <Navbar
+          isNavbarOpen={isNavbarOpen}
+          modalMaskClickHandler={() => setIsNavbarOpen(false)}
+        />
+      )}
 
       <ItemPageContentWrapper>
-        <BackIconWrapper onClick={() => navigate(HOME_PAGE_ROUTE)}>
-          <BackIconStyled />
+        <ItemPageButtonsWrapper>
+          {breakpoint620 && !isNavbarOpen && (
+            <MenuIconStyled onClick={() => setIsNavbarOpen(true)} />
+          )}
 
-          <CustomText
-            fontStyle={FontEnum.CabinRegular20}
-            color={colors.darkGray}
-          >
-            {l.BACK}
-          </CustomText>
-        </BackIconWrapper>
+          <BackIconWrapper onClick={() => navigate(HOME_PAGE_ROUTE)}>
+            <BackIconStyled />
+
+            <CustomText
+              fontStyle={FontEnum.CabinRegular20}
+              color={colors.darkGray}
+            >
+              {l.BACK}
+            </CustomText>
+          </BackIconWrapper>
+        </ItemPageButtonsWrapper>
 
         {item && !loading ? (
-          <>
+          <ItemPageContentResponsiveWrapper>
             <ItemPageTopContentWrapper>
               <ItemPageThumbnailWrapper>
                 <ItemPageThumbnailStyled src={item.thumbnail} />
@@ -88,7 +107,11 @@ const ItemPage: FC = () => {
               <ItemPageTopContentTextWrapper>
                 <ItemPageHeaderWrapper>
                   <CustomText
-                    fontStyle={FontEnum.CabinBold61}
+                    fontStyle={
+                      breakpoint800
+                        ? FontEnum.CabinBold41
+                        : FontEnum.CabinBold61
+                    }
                     color={colors.darkGray}
                   >
                     {item.title}
@@ -120,7 +143,11 @@ const ItemPage: FC = () => {
                 </ItemPageRatingWrapper>
 
                 <CustomText
-                  fontStyle={FontEnum.CabinMedium31}
+                  fontStyle={
+                    breakpoint800
+                      ? FontEnum.CabinMedium25
+                      : FontEnum.CabinMedium31
+                  }
                   color={colors.darkGray}
                 >
                   {l.DOLLAR_PRICE(item.price)}
@@ -129,7 +156,6 @@ const ItemPage: FC = () => {
                 <CustomText
                   fontStyle={FontEnum.CabinRegular20}
                   color={colors.black}
-                  width="57.5rem"
                   className="description"
                 >
                   {item.description}
@@ -154,11 +180,15 @@ const ItemPage: FC = () => {
                   fontStyle={FontEnum.CabinRegular20}
                   color={colors.gray}
                 >
+                  {item.description} {item.description}
+                  {item.description}
+                  {item.description}
+                  {item.description}
                   {item.description}
                 </CustomText>
               </ItemPageDescriptionWrapper>
             </ItemPageBottomContentWrapper>
-          </>
+          </ItemPageContentResponsiveWrapper>
         ) : (
           <ItemPageContentSkeleton />
         )}
