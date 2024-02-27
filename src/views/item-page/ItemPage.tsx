@@ -23,7 +23,6 @@ import l from "languages/en";
 import { FontEnum } from "utils/fonts";
 import colors from "utils/colors";
 import { HOME_PAGE_ROUTE } from "services/routes";
-import { productsCategories } from "utils/constants";
 import { Product } from "models/productModel";
 import ItemPageContentSkeleton from "components/skeleton/item-page-content-skeleton/ItemPageContentSkeleton";
 import { ItemPageDividerWrapper } from "utils/layout";
@@ -57,16 +56,7 @@ const ItemPage: FC = () => {
 
           return response.json();
         })
-        .then((data) => {
-          /* this endpoint returns a single product regardless on the category, but on the home page there're only products of tech categories,
-             so this check prevents the case when user manually inputs itemId into URL to display items that are not part of the home page
-            (for example if itemId is 11, endpoint will return a perfume oil as response) */
-          if (!productsCategories.includes(data.category)) {
-            navigate(HOME_PAGE_ROUTE);
-          }
-
-          setItem(data);
-        })
+        .then((data) => setItem(data))
         .catch(() => navigate(HOME_PAGE_ROUTE))
         .finally(() => setLoading(false));
     }
