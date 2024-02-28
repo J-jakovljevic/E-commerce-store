@@ -79,7 +79,7 @@ const ItemPage: FC = () => {
         />
       )}
 
-      <ItemPageContentWrapper>
+      <ItemPageContentWrapper isSkeleton={loading}>
         <ItemPageButtonsWrapper>
           {breakpoint620 && !isNavbarOpen && (
             <MenuIconStyled onClick={() => setIsNavbarOpen(true)} />
@@ -180,10 +180,6 @@ const ItemPage: FC = () => {
                   fontStyle={FontEnum.CabinRegular20}
                   color={colors.gray}
                 >
-                  {item.description} {item.description}
-                  {item.description}
-                  {item.description}
-                  {item.description}
                   {item.description}
                 </CustomText>
               </ItemPageDescriptionWrapper>

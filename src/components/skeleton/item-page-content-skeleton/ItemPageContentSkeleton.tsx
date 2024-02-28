@@ -3,6 +3,7 @@ import { Divider, Skeleton } from "@mui/material";
 
 import {
   ItemPageBottomContentSkeletonWrapper,
+  ItemPageContentResponsiveSkeletonWrapper,
   ItemPageDescriptionSkeletonWrapper,
   ItemPageHeaderSkeletonWrapper,
   ItemPageTopContentSkeletonWrapper,
@@ -10,22 +11,26 @@ import {
   ThumbnaiSkeletonlWrapper,
 } from "./ItemPageContentSkeleton.styled";
 import { ItemPageDividerWrapper } from "utils/layout";
+import useMediaQuery from "shared/hooks/useMediaQuery";
 
 const ItemPageContentSkeleton: FC = () => {
+  const breakpoint1196 = useMediaQuery("(max-width: 1196px)");
+  const breakpoint892 = useMediaQuery("(max-width: 892px)");
+
   return (
-    <>
+    <ItemPageContentResponsiveSkeletonWrapper>
       <ItemPageTopContentSkeletonWrapper>
         <ThumbnaiSkeletonlWrapper>
           <Skeleton
-            width={520}
-            height={300}
+            width={breakpoint1196 ? (breakpoint892 ? "100%" : 400) : 520}
+            height={250}
             style={{ borderRadius: "1.3rem" }}
           />
         </ThumbnaiSkeletonlWrapper>
 
         <ItemPageTopContentTextSkeletonWrapper>
           <ItemPageHeaderSkeletonWrapper>
-            <Skeleton width={300} height={50} />
+            <Skeleton width={270} height={50} />
 
             <Skeleton width={200} height={40} />
 
@@ -33,7 +38,7 @@ const ItemPageContentSkeleton: FC = () => {
 
             <Skeleton width={70} height={30} />
 
-            <Skeleton width={450} height={90} />
+            <Skeleton width={breakpoint1196 ? 270 : 450} height={90} />
           </ItemPageHeaderSkeletonWrapper>
         </ItemPageTopContentTextSkeletonWrapper>
       </ItemPageTopContentSkeletonWrapper>
@@ -46,10 +51,10 @@ const ItemPageContentSkeleton: FC = () => {
         <ItemPageDescriptionSkeletonWrapper>
           <Skeleton width={170} height={35} />
 
-          <Skeleton width={1200} height={120} />
+          <Skeleton width={breakpoint1196 ? "100%" : 1000} height={120} />
         </ItemPageDescriptionSkeletonWrapper>
       </ItemPageBottomContentSkeletonWrapper>
-    </>
+    </ItemPageContentResponsiveSkeletonWrapper>
   );
 };
 

@@ -29,7 +29,7 @@ export const ItemPageContainer = styled(Row)`
   }
 `;
 
-export const ItemPageContentWrapper = styled(Column)`
+export const ItemPageContentWrapper = styled(Column)<{ isSkeleton?: boolean }>`
   width: 100%;
 
   padding: 3.2rem 2.4rem 4.3rem 2.4rem;
@@ -38,6 +38,10 @@ export const ItemPageContentWrapper = styled(Column)`
   gap: 1.6rem;
 
   box-sizing: border-box;
+
+  @media (max-width: 930px) {
+    ${(props) => props.isSkeleton && "margin-left: 7rem;"}
+  }
 
   @media (max-width: 752px) {
     padding: 3.2rem 1.4rem 4.3rem 1.4rem;
