@@ -1,5 +1,6 @@
 import styled, { keyframes } from "styled-components";
 import colors from "./colors";
+import { MenuIcon } from "shared/icons/icons";
 
 export const Row = styled.div`
   display: flex;
@@ -47,5 +48,37 @@ export const ItemPageDividerWrapper = styled(Column)`
 
     border-bottom-width: 0.3rem;
     border-radius: 0.3rem;
+
+    @media (max-width: 1000px) {
+      width: 60rem;
+    }
+
+    @media (max-width: 700px) {
+      width: 50rem;
+    }
+
+    @media (max-width: 550px) {
+      width: 40rem;
+    }
+
+    @media (max-width: 480px) {
+      width: 30rem;
+    }
+
+    @media (max-width: 380px) {
+      width: 20rem;
+    }
   }
+`;
+
+export const MenuIconStyled = styled(MenuIcon)<{ top?: string }>`
+  position: relative;
+  ${(props) => props.top && `top: ${props.top};`};
+
+  min-width: 2.4rem;
+  min-height: 2.4rem;
+  width: 2.4rem;
+  height: 2.4rem;
+
+  cursor: pointer;
 `;

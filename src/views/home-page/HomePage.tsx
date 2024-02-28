@@ -16,7 +16,6 @@ import {
   HomePageSearchBarStyled,
   NoResultsFoundWrapper,
   HomePageContentWrapper,
-  MenuIconStyled,
   HomePageTopContentWrapper,
 } from "./HomePage.styled";
 import Navbar from "components/navbar/Navbar";
@@ -26,11 +25,11 @@ import ItemCard from "components/item-card/ItemCard";
 import { FontEnum } from "utils/fonts";
 import colors from "utils/colors";
 import { GENERATE_ITEM } from "services/routes";
-import { productsCategories } from "utils/constants";
 import ItemCardSkeleton from "components/skeleton/item-card-skeleton/ItemCardSkeleton";
 import CustomText from "components/custom-text/CustomText";
 import Pagination from "components/pagination/Pagination";
 import useMediaQuery from "shared/hooks/useMediaQuery";
+import { MenuIconStyled } from "utils/layout";
 
 const HomePage: FC = () => {
   const [products, setProducts] = useState<Product[]>();
@@ -48,7 +47,7 @@ const HomePage: FC = () => {
 
   const navigate = useNavigate();
 
-  const breakpoint565 = useMediaQuery("(max-width: 565px)");
+  const breakpoint620 = useMediaQuery("(max-width: 620px)");
 
   const fetchProducts = async (skip: number, limit: number) => {
     try {
@@ -77,7 +76,7 @@ const HomePage: FC = () => {
     if (!searchText) {
       fetchProducts((currentPage - 1) * 10, 10);
     }
-  }, [searchText, productsCategories, currentPage]);
+  }, [searchText, currentPage]);
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
@@ -128,7 +127,7 @@ const HomePage: FC = () => {
 
   return (
     <HomePageContainer>
-      {(!breakpoint565 || isNavbarOpen) && (
+      {(!breakpoint620 || isNavbarOpen) && (
         <Navbar
           isNavbarOpen={isNavbarOpen}
           modalMaskClickHandler={() => setIsNavbarOpen(false)}
@@ -138,8 +137,11 @@ const HomePage: FC = () => {
       <HomePageContentContainer>
         <HomePageContentWrapper>
           <HomePageTopContentWrapper>
-            {breakpoint565 && (
-              <MenuIconStyled onClick={() => setIsNavbarOpen(true)} />
+            {breakpoint620 && (
+              <MenuIconStyled
+                top="5.5rem"
+                onClick={() => setIsNavbarOpen(true)}
+              />
             )}
 
             <HomePageSearchBarWrapper>

@@ -16,13 +16,13 @@ type Props = {
 };
 
 const Navbar: FC<Props> = ({ isNavbarOpen, modalMaskClickHandler }) => {
-  const breakpoint565 = useMediaQuery("(max-width: 565px)");
+  const breakpoint620 = useMediaQuery("(max-width: 620px)");
 
   const navigate = useNavigate();
 
   return (
     <>
-      {(breakpoint565 || isNavbarOpen) && (
+      {(breakpoint620 || isNavbarOpen) && (
         <ModalMask onClick={modalMaskClickHandler} />
       )}
 

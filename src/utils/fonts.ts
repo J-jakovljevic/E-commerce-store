@@ -30,6 +30,12 @@ const CabinMedium20 = styled.span`
   line-height: 2.43rem;
 `;
 
+const CabinMedium25 = styled.span`
+  font-family: "Cabin-Medium";
+  font-size: 2.5rem;
+  line-height: 2.8rem;
+`;
+
 const CabinMedium31 = styled.span`
   font-family: "Cabin-Medium";
   font-size: 3.1rem;
@@ -44,6 +50,12 @@ const CabinBold61 = styled.span`
   line-height: 7.4rem;
 `;
 
+const CabinBold41 = styled.span`
+  font-family: "Cabin-Bold";
+  font-size: 4.1rem;
+  line-height: 4.8rem;
+`;
+
 const CabinBold31 = styled.span`
   font-family: "Cabin-Bold";
   font-size: 3.1rem;
@@ -55,8 +67,10 @@ export enum FontEnum {
   CabinRegular20 = "CabinRegular20",
   CabinItalic16 = "CabinItalic16",
   CabinMedium20 = "CabinMedium20",
+  CabinMedium25 = "CabinMedium25",
   CabinMedium31 = "CabinMedium31",
   CabinBold31 = "CabinBold31",
+  CabinBold41 = "CabinBold41",
   CabinBold61 = "CabinBold61",
 }
 
@@ -66,8 +80,10 @@ export const getFontStyles = (fontStyle: FontEnum) => {
     [FontEnum.CabinRegular20]: CabinRegular20,
     [FontEnum.CabinItalic16]: CabinItalic16,
     [FontEnum.CabinMedium20]: CabinMedium20,
+    [FontEnum.CabinMedium25]: CabinMedium25,
     [FontEnum.CabinMedium31]: CabinMedium31,
     [FontEnum.CabinBold31]: CabinBold31,
+    [FontEnum.CabinBold41]: CabinBold41,
     [FontEnum.CabinBold61]: CabinBold61,
   };
 
