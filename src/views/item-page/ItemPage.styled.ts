@@ -118,6 +118,7 @@ export const ItemPageThumbnailWrapper = styled(Row)`
 
 export const ItemPageThumbnailStyled = styled.img`
   min-width: 25.8rem;
+  max-width: 50rem;
   height: 31.8rem;
 
   border-radius: 1.3rem;

@@ -15,6 +15,7 @@ import {
   ReadMoreLink,
 } from "./ItemCard.styled";
 import l from "languages/en";
+import useMediaQuery from "shared/hooks/useMediaQuery";
 
 type Props = {
   title: string;
@@ -33,6 +34,8 @@ const ItemCard: FC<Props> = ({
   thumbnailClickHandler,
   readMoreClickHandler,
 }) => {
+  const breakpoint340 = useMediaQuery("(max-width: 340px)");
+
   return (
     <ItemCardContainer>
       <ItemCardThumbnailWrapper>
@@ -43,7 +46,11 @@ const ItemCard: FC<Props> = ({
       </ItemCardThumbnailWrapper>
 
       <ItemCardContentWrapper>
-        <CustomText fontStyle={FontEnum.CabinMedium20} color={colors.darkGray}>
+        <CustomText
+          fontStyle={FontEnum.CabinMedium20}
+          color={colors.darkGray}
+          width={breakpoint340 ? "25rem" : "30rem"}
+        >
           {title}
         </CustomText>
 

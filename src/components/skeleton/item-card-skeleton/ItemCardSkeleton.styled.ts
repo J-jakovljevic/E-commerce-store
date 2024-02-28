@@ -3,7 +3,6 @@ import { Column, Row } from "utils/layout";
 
 export const ItemCardSkeletonContainer = styled(Column)`
   height: 39.7rem;
-  width: 46rem;
 
   padding: 1.6rem;
 

@@ -15,7 +15,7 @@ const ItemCardSkeleton: FC = () => {
   return (
     <ItemCardSkeletonContainer>
       <Skeleton
-        width={breakpoint1024 ? "100%" : 427}
+        width={breakpoint1024 ? "100%" : 350}
         height={232}
         style={{
           borderRadius: "2.2rem",

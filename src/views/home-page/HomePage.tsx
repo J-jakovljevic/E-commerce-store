@@ -3,6 +3,7 @@ import React, {
   FC,
   KeyboardEvent,
   useEffect,
+  useRef,
   useState,
 } from "react";
 import { useNavigate } from "react-router-dom";
@@ -45,6 +46,8 @@ const HomePage: FC = () => {
   const [totalPages, setTotalPages] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
 
+  const nextPageRef = useRef<HTMLDivElement>(null);
+
   const navigate = useNavigate();
 
   const breakpoint620 = useMediaQuery("(max-width: 620px)");
@@ -75,6 +78,10 @@ const HomePage: FC = () => {
   useEffect(() => {
     if (!searchText) {
       fetchProducts((currentPage - 1) * 10, 10);
+
+      if (nextPageRef.current) {
+        nextPageRef.current.scrollIntoView({ behavior: "smooth" });
+      }
     }
   }, [searchText, currentPage]);
 
@@ -126,7 +133,7 @@ const HomePage: FC = () => {
   };
 
   return (
-    <HomePageContainer>
+    <HomePageContainer ref={nextPageRef}>
       {(!breakpoint620 || isNavbarOpen) && (
         <Navbar
           isNavbarOpen={isNavbarOpen}
@@ -197,6 +204,7 @@ const HomePage: FC = () => {
 
           {products && products.length !== 0 && (
             <Pagination
+              ref={nextPageRef}
               totalPages={totalPages}
               currentPage={currentPage}
               onPageChange={handlePageChange}

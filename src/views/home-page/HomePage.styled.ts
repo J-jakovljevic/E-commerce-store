@@ -30,12 +30,16 @@ export const HomePageContentContainer = styled(Column)`
 
   padding: 0.8rem 22.6rem 3.4rem 20.3rem;
 
-  @media (max-width: 800px) {
-    padding: 0.8rem 4rem 3.4rem 10rem;
+  @media (max-width: 1130px) {
+    padding: 0.8rem 15rem 3.4rem 15rem;
   }
 
-  @media (max-width: 565px) {
-    padding: 0.8rem 1rem 3.4rem 1rem;
+  @media (max-width: 800px) {
+    padding: 0.8rem 0 3.4rem 10rem;
+  }
+
+  @media (max-width: 620px) {
+    padding: 0.8rem 0 3.4rem 1rem;
   }
 
   @media (max-width: 420px) {
@@ -109,10 +113,6 @@ export const HomePageItemCardsWrapper = styled(Row)`
   gap: 3.2rem;
 
   justify-content: center;
-
-  @media (max-width: 620px) {
-    justify-content: flex-start;
-  }
 `;
 
 export const NoResultsFoundWrapper = styled(Row)`
