@@ -10,6 +10,9 @@ const useMediaQuery = (query: string) => {
       setMatches(e.matches);
     };
 
+    // initial check
+    setMatches(matchQueryList.matches);
+
     matchQueryList.addEventListener("change", handleChange);
 
     return () => matchQueryList.removeEventListener("change", handleChange);
